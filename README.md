@@ -14,5 +14,126 @@ This project required knowledge of Verilog, FSMs, and digital design principles 
 
 # State tabel.
 # Verilog code.
+
+```
+module vending_machine(
+  input clk,
+  input rst,
+  input reg[1:0] x,
+  output reg out,
+  output reg[1:0] c
+);
+  
+  
+  parameter s0=2'b00;
+  parameter s1=2'b01;
+  parameter s2=2'b10;
+  
+  reg[1:0] state,next_state;
+  always@ (posedge clk)
+    begin
+      if(rst==1)
+        begin
+          state=0;
+          next_state=0;
+          c=2'b00;
+        end
+      
+      else
+        state=next_state;
+      
+      case(state)
+        s0:
+          if(x==0)
+            begin
+              next_state=s0;
+              out=0;
+              c=2'b00;
+            end
+        else if(x==2'b01)
+          begin
+            next_state= s1;
+            out=0;
+            c=2'b00;
+          end
+        else if(x==2'b10)
+          begin
+            next_state=s2;
+            out=0;
+            c=2'b00;
+          end
+        s1:
+          
+          if(x==0)
+            begin
+              next_state=s0;
+              out=0;
+              c=2'b01;
+            end
+        else if(x==2'b01)
+          begin
+            next_state=s2;
+            out=0;
+            c=2'b00;
+          end
+        else if(x==2'b10)
+          begin
+            next_state=s0;
+            out=1;
+            c=2'b00;
+          end
+        s2:
+          if(x==2'b00)
+            begin
+              next_state=s0;
+              out=0;
+              c=2'b10;
+            end
+        else if(x==2'b01)
+          begin
+            next_state=s0;
+            out=1;
+            c=2'b00;
+          end
+        else if(x==2'b10)
+          begin
+            next_state=s0;
+            out=1;
+            c=2'b01;
+          end
+      endcase
+    end
+endmodule
+
+```
 # Testbench.
+
+```
+
+module vending_machine_tb;
+  //input
+  reg clk;
+  reg rst;
+  reg [1:0] x;
+  
+  //outputs
+  
+  wire out;
+  wire [1:0] c;
+  vending_machine uut(.clk(clk),.rst(rst),.x(x),.out(out),.c(c));
+  initial begin
+    $dumpfile("vending_machine.vcd");
+    $dumpvars(0,vending_machine_tb);
+    rst=1;
+    clk=0;
+    #6 rst=0;
+    x=1;
+    #11 x=1;
+    #16 x=2;
+    #25 $finish;
+  end
+  always #5 clk=~clk;
+endmodule
+
+```
 # Output.
