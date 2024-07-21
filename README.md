@@ -7,12 +7,12 @@ A test-bench was created to simulate different scenarios, such as different coin
 
 This project required knowledge of Verilog, FSMs, and digital design principles and provided a challenging and rewarding opportunity to better understand how vending machines operate. The completed project was a functional and efficient vending machine that could dispense products and return change with ease.
 
+This project simulates the way an ideal vending machine would handel transactions. This vending machine works for only one item of Rs15 ans so it shows how a vending machine works if it accepts only 5 and 10Rs. 
+
 # State diagram.
 
 ![WhatsApp Image 2024-07-21 at 15 31 34_892c121b](https://github.com/user-attachments/assets/54c23a59-136a-43f4-af5c-004743edbc93)
 
-
-# State tabel.
 # Verilog code.
 
 ```
